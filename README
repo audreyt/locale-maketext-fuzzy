@@ -1,10 +1,6 @@
 NAME
     Locale::Maketext::Fuzzy - Maketext from already interpolated strings
 
-VERSION
-    This document describes version 0.10 of Locale::Maketext::Fuzzy,
-    released October 14, 2007.
-
 SYNOPSIS
         package MyApp::L10N;
         use base 'Locale::Maketext::Fuzzy'; # instead of Locale::Maketext
@@ -139,9 +135,9 @@ HISTORY
         Output| <B>[%|loc( story.dept )%]from the [_1] dept.[%END%]</B>
 
     Now, this layer suffers from the same linguistic problems as an ordinary
-    "Msgcat" or "Gettext" framework does -- what if we want to make
-    ordinates from "[% story.dept %]" (i.e. "from the 3rd dept."), or expand
-    the "dept." to "department" / "departments"?
+    "Msgcat" or "Gettext" framework does -- what if we want to make ordinals
+    from "[% story.dept %]" (i.e. "from the 3rd dept."), or expand the
+    "dept." to "department" / "departments"?
 
     The same problem occurred in RT's web interface, where it had to
     localize messages returned by external modules, which may already
@@ -153,35 +149,18 @@ HISTORY
     the *candidate strings*, then applied the matched string to "maketext".
 
     Afterwards, I realized that instead of preparing a set of candidate
-    strings, I could actually use the original *lexicon file* (i.e. PO files
-    via "Locale::Maketext::Lexicon") to match against. This is how
+    strings, I could actually match against the original *lexicon file*
+    (i.e. PO files via "Locale::Maketext::Lexicon"). This is how
     "Locale::Maketext::Fuzzy" was born.
 
 AUTHORS
-    Audrey Tang <cpan@audreyt.org>.
+    Audrey Tang <cpan@audreyt.org>
 
-COPYRIGHT
-    Copyright 2002, 2007 by Audrey Tang <cpan@audreyt.org>.
+CC0 1.0 Universal
+    To the extent possible under law, 唐鳳 has waived all copyright and
+    related or neighboring rights to Locale-Maketext-Fuzzy.
 
-    This software is released under the MIT license cited below.
+    This work is published from Taiwan.
 
-  The "MIT" License
-    Permission is hereby granted, free of charge, to any person obtaining a
-    copy of this software and associated documentation files (the
-    "Software"), to deal in the Software without restriction, including
-    without limitation the rights to use, copy, modify, merge, publish,
-    distribute, sublicense, and/or sell copies of the Software, and to
-    permit persons to whom the Software is furnished to do so, subject to
-    the following conditions:
-
-    The above copyright notice and this permission notice shall be included
-    in all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    <http://creativecommons.org/publicdomain/zero/1.0>
 

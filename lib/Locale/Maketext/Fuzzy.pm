@@ -1,5 +1,5 @@
 package Locale::Maketext::Fuzzy;
-$Locale::Maketext::Fuzzy::VERSION = '0.10';
+$Locale::Maketext::Fuzzy::VERSION = '0.11';
 
 use 5.005;
 use strict;
@@ -45,6 +45,11 @@ sub maketext_fuzzy {
 
         # We're not interested in non-bracketed entries, so ignore them
         foreach my $entry ( grep /(?:(?<!~)(?:~~)*)\[/, keys %{$lex} ) {
+            # Skip entries which are _only_ brackets and whitespace.
+            # The most value they could add is rearrangement, and that
+            # is almost certainly incorrect.
+            next if $entry =~ /^\s*(\[[^]]+\]\s*)+$/;
+
             my $re = ( $regex_cache{$entry} ||= [ _regexify($entry) ] );
             my @vars = ( $phrase =~ $re->[0] ) or next;
             $candidate{$entry} ||=
@@ -130,11 +135,6 @@ sub _paramify {
 =head1 NAME
 
 Locale::Maketext::Fuzzy - Maketext from already interpolated strings
-
-=head1 VERSION
-
-This document describes version 0.10 of Locale::Maketext::Fuzzy, released
-October 14, 2007.
 
 =head1 SYNOPSIS
 
@@ -292,7 +292,7 @@ C<HTML::Parser> and C<Template::Parser>.  It would work like this:
 
 Now, this layer suffers from the same linguistic problems as an
 ordinary C<Msgcat> or C<Gettext> framework does -- what if we want
-to make ordinates from C<[% story.dept %]> (i.e. C<from the 3rd dept.>),
+to make ordinals from C<[% story.dept %]> (i.e. C<from the 3rd dept.>),
 or expand the C<dept.> to C<department> / C<departments>?
 
 The same problem occurred in RT's web interface, where it had to
@@ -305,38 +305,21 @@ I devised a C<loc_match> method to pre-process their messages into one
 of the I<candidate strings>, then applied the matched string to C<maketext>.
 
 Afterwards, I realized that instead of preparing a set of candidate
-strings, I could actually use the original I<lexicon file> (i.e. PO files
-via C<Locale::Maketext::Lexicon>) to match against.  This is how
+strings, I could actually match against the original I<lexicon file>
+(i.e. PO files via C<Locale::Maketext::Lexicon>).  This is how
 C<Locale::Maketext::Fuzzy> was born.
 
 =head1 AUTHORS
 
 Audrey Tang E<lt>cpan@audreyt.orgE<gt>
 
-=head1 COPYRIGHT
+=head1 CC0 1.0 Universal
 
-Copyright 2002, 2007 by Audrey Tang E<lt>cpan@audreyt.orgE<gt>.
+To the extent possible under law, 唐鳳 has waived all copyright and related
+or neighboring rights to Locale-Maketext-Fuzzy.
 
-This software is released under the MIT license cited below.
+This work is published from Taiwan.
 
-=head2 The "MIT" License
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-DEALINGS IN THE SOFTWARE.
+L<http://creativecommons.org/publicdomain/zero/1.0>
 
 =cut

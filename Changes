@@ -1,3 +1,11 @@
+[Changes for 0.11 - 2011-12-11]
+
+* LICENSING CHANGE: This compilation and all individual files in it
+  are now under public domain with the "CC0 Universal" declaration.
+
+* Skip fuzzy matches which are only placeholders and whitespace.
+  (Alex Vandiver)
+
 [Changes for 0.10 - 2007-10-14]
 
 * LICENSING CHANGE: This compilation and all individual files in it
